@@ -39,10 +39,16 @@ with col1:
     # Insere os pontos no mapa
     for _, row in df_filtrado.iterrows():
         popup_texto = f"<b>{row['NOME_FANTASIA']}</b><br>{row['RUA']}, {row['BAIRRO']}<br>{row['MUNICIPIO']}"
-        folium.Marker(
+        folium.CircleMarker(
             location=[row['Latitude'], row['Longitude']],
+            radius=6,                 # Define o tamanho do ponto
+            color="#005b96",          # Cor da linha da borda (azul escuro)
+            weight=1,                 # Espessura da borda
+            fill=True,                # Ativa o preenchimento
+            fill_color="#03396c",     # Cor de dentro do ponto
+            fill_opacity=0.7,         # Nível de transparência (0.0 a 1.0)
             popup=folium.Popup(popup_texto, max_width=300),
-            icon=folium.Icon(color="blue", icon="info-sign")
+            tooltip="Clique para ver detalhes"
         ).add_to(mapa)
         
     st_folium(mapa, width=700, height=500)
